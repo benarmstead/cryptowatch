@@ -3,11 +3,19 @@ use binance::market::Market;
 use std::{env, process, thread, time};
 
 fn main() {
-    let trade_codes = vec![
-        "XMR/USDT".to_string(),
-        "BTC/USDT".to_string(),
-        "ETH/USDT".to_string(),
-    ];
+    let args: Vec<String> = env::args().collect();
+
+    let mut trade_codes: Vec<String> = vec![];
+
+    if args.len() == 1 {
+        println!("Must enter at least 1 argument!");
+        process::exit(1);
+    }
+
+    for i in 1..args.len() {
+        trade_codes.push(args[i].to_string())
+    }
+
     let market: Market = Binance::new(None, None);
     loop_print_price(market, trade_codes);
 }
