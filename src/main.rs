@@ -1,6 +1,6 @@
-use binance::api::*;
-use binance::market::*;
-use std::{thread, time};
+use binance::api::Binance;
+use binance::market::Market;
+use std::{env, process, thread, time};
 
 fn main() {
     let trade_codes = vec![
