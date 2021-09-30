@@ -12,6 +12,8 @@ e.g.
 
 `./crypto_watch XMR/USDT BTC/USDT ETH/USDT`
 
+![image](https://user-images.githubusercontent.com/70973680/135427398-804ac65b-f728-42f8-a2b6-b53cb3290505.png)
+
 ## Compile from source
 
 `cargo build --release`
