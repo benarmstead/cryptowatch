@@ -21,15 +21,10 @@ fn main() {
 }
 
 fn loop_print_price(market: Market, trade_codes: Vec<String>) {
-    let trade_codes_len = trade_codes.len();
-
     let mut price: f64;
-    let mut prices: Vec<String> = vec!["".to_string(); trade_codes_len];
+    let mut prices: Vec<String> = vec![];
 
     loop {
-        let final_length = prices.len().saturating_sub(trade_codes_len);
-        prices.truncate(final_length);
-
         for i in &trade_codes {
             price = get_price(&market, &i.replace("/", ""));
             prices.push(price.to_string());
@@ -37,11 +32,18 @@ fn loop_print_price(market: Market, trade_codes: Vec<String>) {
 
         clearscreen::clear().expect("failed to clear screen");
 
-        for i in 0..trade_codes_len {
-            println!("{}: ${}", trade_codes[i], prices[i]);
+        for (x, i) in trade_codes.iter().enumerate() {
+            if prices[x] == (-0.1).to_string() {
+                println!("{}: {}", i, "Could not find trade code");
+            } else {
+                println!("{}: {}", i, prices[x]);
+            }
         }
 
-        sleep(5);
+        let final_length = prices.len().saturating_sub(trade_codes.len());
+        prices.truncate(final_length);
+
+        sleep(3);
     }
 }
 
